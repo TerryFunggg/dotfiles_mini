@@ -1,5 +1,5 @@
+# Require peco or demenu
 #!/usr/bin/env bash
-
 DMEDITOR="nvim"
 
 declare -a options=(
@@ -9,11 +9,22 @@ declare -a options=(
     "ranger - $HOME/.config/ranger/rc.conf"
     "nvim - $HOME/.config/nvim/init.lua"
     "zshrc - $HOME/.zshrc"
+    "bashrc - $HOME/.bashrc"
     "DoomEmacs - $HOME/.doom.d/config.el"
     #"dwm - $HOME/github/dwm/config.def.h"
 )
 
-choice=$(printf '%s\n' "${options[@]}" | peco)
+if command -v peco > /dev/null 2>&1;then
+	choice=$(printf '%s\n' "${options[@]}" | peco)
+else
+	if command -v dmenu > /dev/null 2>&1;then
+		choice=$(printf '%s\n' "${options[@]}" | dmenu -l 10)
+	else
+		echo "Required peco or dmenu. "
+		exit 0
+	fi
+fi
+
 
 if [[ "$choice" == "quit" ]]; then
     echo "Program terminated." && exit 1
