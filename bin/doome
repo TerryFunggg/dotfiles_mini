@@ -1,2 +1,0 @@
-#! /bin/zsh
-emacsclient -s -q doom -c "$@"
