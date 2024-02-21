@@ -327,3 +327,6 @@ mode "$mode_gaps_left" {
         bindsym Escape mode "default"
 }
 
+bindsym $mod+b exec --no-startup-id feh --no-fehbg --bg-fill --randomize ~/wallpaper/*
+exec --no-startup-id feh --no-fehbg --bg-fill --randomize ~/wallpaper/*
+exec --no-startup-id picom
