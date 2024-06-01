@@ -9,5 +9,5 @@ then
   $EDITOR='emacs'
 
 else
-  $EDITOR='vim'
+  $EDITOR='nvim'
 fi
