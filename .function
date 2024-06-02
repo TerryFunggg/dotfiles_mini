@@ -1,0 +1,11 @@
+#!/bin/sh
+
+function cheat()
+{
+	curl cheat.sh/$1
+}
+
+function grep-find()
+{
+	find . -type f -exec grep --color=auto -nH --null -e $1 {} \;
+}
