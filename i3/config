@@ -331,7 +331,7 @@ mode "$mode_gaps_left" {
 }
 
 exec --no-startup-id xrandr --output HDMI-2 --auto --right-of eDP1
-bindsym $mod+b exec --no-startup-id feh --no-fehbg --bg-fill --randomize ~/wallpaper/*
+bindsym $mod+b exec --no-startup-id feh --no-fehbg --bg-fill $(shuf -en1 ~/wallpaper/*) $(shuf -en1 ~/wallpaper_2/*)
 exec --no-startup-id feh --no-fehbg --bg-fill $(shuf -en1 ~/wallpaper/*) $(shuf -en1 ~/wallpaper_2/*)
 exec --no-startup-id picom
 exec --no-startup-id dunst
