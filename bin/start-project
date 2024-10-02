@@ -2,9 +2,10 @@
 
 declare -a options=(
     "MyBrain - project/mybrain_php/"
+    "pikuma_Graphic - codebox/pikuma/learn-computer-graphics"
 )
 
-choice=$(printf '%s\n' "${options[@]}" | peco)
+choice=$(printf '%s\n' "${options[@]}" | dmenu -l 10)
 
 if [[ "$choice" == "quit" ]]; then
     echo "Program terminated." && exit 1
@@ -20,25 +21,13 @@ elif [ "$choice" ]; then
         tmux new-session -d -s "$name"
 
         tmux rename-window -t $name:0 'Console'
-        tmux split-window -h -p 90 -t $name:Console
-        tmux select-pane -t $name:Console -L
-        tmux send-keys -t $name:Console C-c 'tree -d -L 3' C-m
-        tmux select-pane -t $name:Console -R
-        tmux split-window -v -p 10 -t $name:Console
-        tmux send-keys -t $name:Console C-c 'git status' C-m
-        tmux select-pane -t $name:Console -U
 
         tmux new-window -t $name:1 -n 'Vim'
         tmux send-keys -t $name:Vim C-c 'nvim .' C-m
-
-        tmux new-window -t $name:2 -n 'Emacs'
-        tmux send-keys -t $name:Emacs C-c 'emacs -nw .' C-m
-
-        tmux new-window -t $name:3 -n 'Background'
     fi
 
 
-    tmux attach -t $name
+    alacritty -e sh -c "tmux attach -t $name" &
 else
     echo "Program terminated." && exit 1
 fi

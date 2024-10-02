@@ -1,5 +1,6 @@
-# Require peco or demenu
 #!/usr/bin/env bash
+
+# Require peco or demenu
 DMEDITOR="nvim"
 
 declare -a options=(
@@ -17,15 +18,11 @@ declare -a options=(
     #"dwm - $HOME/github/dwm/config.def.h"
 )
 
-if command -v peco > /dev/null 2>&1;then
-	choice=$(printf '%s\n' "${options[@]}" | peco)
+if command -v dmenu > /dev/null 2>&1;then
+	choice=$(printf '%s\n' "${options[@]}" | dmenu -l 10)
 else
-	if command -v dmenu > /dev/null 2>&1;then
-		choice=$(printf '%s\n' "${options[@]}" | dmenu -l 10)
-	else
-		echo "Required peco or dmenu. "
-		exit 0
-	fi
+	echo "Required peco or dmenu. "
+	exit 0
 fi
 
 
@@ -34,7 +31,7 @@ if [[ "$choice" == "quit" ]]; then
 
 elif [ "$choice" ]; then
     cfg=$(printf '%s\n' "${choice}" | awk '{print $NF}')
-    $DMEDITOR "$cfg"
+    alacritty -e sh -c "$DMEDITOR $cfg" &
 else
     echo "Program terminated." && exit 1
 fi
