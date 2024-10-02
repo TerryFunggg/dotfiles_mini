@@ -332,3 +332,8 @@ exec --no-startup-id feh --no-fehbg --bg-fill --randomize ~/wallpaper/*
 exec --no-startup-id picom
 exec --no-startup-id dunst
 exec --no-startup-id fcitx5
+
+# print man as pdf
+bindsym $mod+F1 exec man -k . | dmenu -l 30 | awk '{print $1}' | xargs -r man -Tpdf | zathura -
+bindsym $mod+F2 exec my-config
+bindsym $mod+F3 exec start-project
