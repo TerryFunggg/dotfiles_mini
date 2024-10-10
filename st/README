@@ -7,6 +7,12 @@ Requirements
 ------------
 In order to build st you need the Xlib header files.
 
+Patch
+------------
+All patches files under patches folder
+To install the those patch:
+
+    patch -i ./patches/patch-file
 
 Installation
 ------------
@@ -16,7 +22,7 @@ the /usr/local namespace by default).
 Afterwards enter the following command to build and install st (if
 necessary as root):
 
-    make clean install
+    rm -rf config.h && sudo make clean install
 
 
 Running st
