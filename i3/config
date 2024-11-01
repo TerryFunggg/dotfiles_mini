@@ -334,6 +334,6 @@ exec --no-startup-id dunst
 exec --no-startup-id fcitx5
 
 # print man as pdf
-bindsym $mod+F1 exec man -k . | dmenu -l 30 | awk '{print $1}' | xargs -r man -Tpdf | zathura -
+bindsym $mod+F1 exec . /home/terryfung/bin/manpdf
 bindsym $mod+F2 exec . /home/terryfung/bin/my-config
 bindsym $mod+F3 exec . /home/terryfung/bin/start-project

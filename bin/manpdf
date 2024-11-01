@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+name=$(man -k . | dmenu -l 30 | awk '{print $1}') 
+if [[ $name ]]; then
+	man -Tpdf $name | zathura -
+fi
