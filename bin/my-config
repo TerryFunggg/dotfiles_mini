@@ -18,11 +18,20 @@ declare -a options=(
     #"dwm - $HOME/github/dwm/config.def.h"
 )
 
-if command -v dmenu > /dev/null 2>&1;then
+if [ -n "$DESKTOP_SESSION" ]; then
+    if command -v dmenu > /dev/null 2>&1;then
 	choice=$(printf '%s\n' "${options[@]}" | dmenu -l 10)
-else
-	echo "Required peco or dmenu. "
+    else
+	echo "Require dmenu. Please install dmenu first "
 	exit 0
+    fi
+else 
+    if command -v peco > /dev/null 2>&1;then
+	choice=$(printf '%s\n' "${options[@]}" | peco)
+    else
+	echo "Require peco. Please install peco first. "
+	exit 0
+    fi
 fi
 
 
@@ -31,7 +40,32 @@ if [[ "$choice" == "quit" ]]; then
 
 elif [ "$choice" ]; then
     cfg=$(printf '%s\n' "${choice}" | awk '{print $NF}')
-    alacritty -e sh -c "$DMEDITOR $cfg" &
+    name=$(printf '%s\n' "${choice}" | awk '{print $1}')
+    dir=${cfg%/*}
+
+    # if in desktop GUI env, pop terminal directly
+    if [ -n "$DESKTOP_SESSION" ]; then
+	alacritty --working-directory $dir -e sh -c "$DMEDITOR $cfg" &
+    else
+    # else in terminal base,  attach to tmux session
+	if command -v tmux > /dev/null 2>&1;then
+	    tmux has-session -t "$name" 2>/dev/null
+	    if [ $? != 0 ];then
+		tmux new-session -d -s "$name"
+		tmux rename-window -t $name 'Console'
+		tmux send-keys -t $name C-c "$DMEDITOR $cfg" C-m
+	    fi
+	    if [ -n "$TMUX" ]; then
+		tmux switch-client -t $name
+	    else
+		tmux attach -t $name
+	    fi
+	    exit
+	else
+	    echo "Require tmux. Please install tmux first. "
+	    exit 0
+	fi
+    fi
 else
     echo "Program terminated." && exit 1
 fi
