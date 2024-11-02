@@ -1,11 +1,16 @@
 #!/usr/bin/env bash
-
+set -e
 declare -a tools=(
     "git"
     "wget"
     "tmux"
     "vim"
-    "fd"
     "fzf"
     "ranger"
+    "i3"
+    "picom"
+    "dunst"
+    "alacritty"
 )
+
+$distro ${tools[*]}
