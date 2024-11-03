@@ -1,11 +1,33 @@
 #!/usr/bin/env bash
 
 declare -a options=(
-    "MyBrain - project/mybrain_php/"
-    "pikuma_Graphic - codebox/pikuma/learn-computer-graphics"
+    "MyBrain - $HOME/project/mybrain_php/"
+    "pikuma_Graphic - $HOME/codebox/pikuma/learn_computer_graphic"
 )
 
-choice=$(printf '%s\n' "${options[@]}" | dmenu -l 10)
+# Require tmux
+if command -v tmux > /dev/null 2>&1;then
+    echo ''
+else
+    echo "Require tmux. Please install tmux first. "
+    exit 0
+fi
+
+if [ -n "$DESKTOP_SESSION" ]; then
+    if command -v dmenu > /dev/null 2>&1;then
+        choice=$(printf '%s\n' "${options[@]}" | dmenu -l 10)
+    else
+	echo "Require dmenu. Please install dmenu first "
+	exit 0
+    fi
+else 
+    if command -v peco > /dev/null 2>&1;then
+        choice=$(printf '%s\n' "${options[@]}" | peco)
+    else
+	echo "Require peco. Please install peco first. "
+	exit 0
+    fi
+fi
 
 if [[ "$choice" == "quit" ]]; then
     echo "Program terminated." && exit 1
@@ -13,21 +35,24 @@ if [[ "$choice" == "quit" ]]; then
 elif [ "$choice" ]; then
     name=$(printf '%s\n' "${choice}" | awk '{print $1}')
     path=$(printf '%s\n' "${choice}" | awk '{print $NF}')
-    cd "$HOME/$path"
 
-    tmux has-session -t "$name" 2>/dev/null
-
-    if [ $? != 0 ];then
-        tmux new-session -d -s "$name"
-
-        tmux rename-window -t $name:0 'Console'
-
-        tmux new-window -t $name:1 -n 'Vim'
-        tmux send-keys -t $name:Vim C-c 'nvim .' C-m
+    if [ ! -d "$path" ]; then
+	echo "The project path $path dose not exist."
+	exit 0
     fi
 
+    tmux has-session -t "$name" 2>/dev/null
+    if [ $? != 0 ];then
+	# create new session on background
+	tmux new-session -s "$name" -c $path -d
+    fi
 
-    alacritty -e sh -c "tmux attach -t $name" &
+    if [ -n "$TMUX" ]; then
+	# if in tmux session already, jump to new session
+	tmux switch-client -t $name
+    else
+	tmux attach -t $name -c $path
+    fi
 else
     echo "Program terminated." && exit 1
 fi
