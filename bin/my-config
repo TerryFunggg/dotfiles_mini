@@ -14,7 +14,7 @@ declare -a options=(
     "Emacs - $HOME/.emacs.d/init.el"
     "i3 - $HOME/.config/i3/config"
     "picom - $HOME/.config/picom/picom.conf"
-    #"DoomEmacs - $HOME/.doom.d/config.el"
+    # "DoomEmacs - $HOME/.doom.d/config.el"
     #"dwm - $HOME/github/dwm/config.def.h"
 )
 
@@ -43,6 +43,11 @@ elif [ "$choice" ]; then
     name=$(printf '%s\n' "${choice}" | awk '{print $1}')
     dir=${cfg%/*}
 
+    if [ ! -e "$cfg" ]; then
+	echo "The file $cfg dose not exist."
+	exit 0
+    fi
+
     # if in desktop GUI env, pop terminal directly
     if [ -n "$DESKTOP_SESSION" ]; then
 	alacritty --working-directory $dir -e sh -c "$DMEDITOR $cfg" &
@@ -51,16 +56,16 @@ elif [ "$choice" ]; then
 	if command -v tmux > /dev/null 2>&1;then
 	    tmux has-session -t "$name" 2>/dev/null
 	    if [ $? != 0 ];then
-		tmux new-session -d -s "$name"
-		tmux rename-window -t $name 'Console'
-		tmux send-keys -t $name C-c "$DMEDITOR $cfg" C-m
+		# create new session on background
+		tmux new-session -s "$name" -c $dir -d
+		tmux send-keys -t $name "$DMEDITOR $cfg" ENTER
 	    fi
 	    if [ -n "$TMUX" ]; then
+		# if in tmux session already, jump to new session
 		tmux switch-client -t $name
 	    else
-		tmux attach -t $name
+		tmux attach -t $name -c $dir
 	    fi
-	    exit
 	else
 	    echo "Require tmux. Please install tmux first. "
 	    exit 0
