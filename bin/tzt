@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+# open file in new tmux window
+# command run require in tmux session
+
+DMEDITOR="vim"
+
+declare -a exclude_path=(
+  "*/node_module/*"
+  "*/.git/*"
+)
+
+fzf_style="--height 20% --border --layout reverse"
+
+e=""
+for i in "${exclude_path[@]}"
+do
+  e+="! -path $i "
+done
+
+# if directory using git, find by git files
+# else search from current directory
+if git status --porcelain > /dev/null 2>&1; then 
+	cmd=$(git ls-files | fzf $fzf_style)
+else
+	cmd=$(find . -type f $e $f | fzf $fzf_style)
+fi
+
+if [ "$cmd" ] && [ -n "$TMUX" ]; then
+    # if in tmux session 
+    tmux new-window -n $(basename $cmd) -c $(pwd)
+    tmux send-keys "$DMEDITOR $cmd" ENTER
+fi
