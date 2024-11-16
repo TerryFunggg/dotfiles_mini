@@ -21,7 +21,7 @@ done
 # if directory using git, find by git files
 # else search from current directory
 if git status --porcelain > /dev/null 2>&1; then 
-	cmd=$(git ls-files | fzf $fzf_style)
+	cmd=$(git ls-files -o | fzf $fzf_style)
 else
 	cmd=$(find . -type f $e $f | fzf $fzf_style)
 fi
@@ -30,4 +30,6 @@ if [ "$cmd" ] && [ -n "$TMUX" ]; then
     # if in tmux session 
     tmux new-window -n $(basename $cmd) -c $(pwd)
     tmux send-keys "$DMEDITOR $cmd" ENTER
+else
+   $DMEDITOR $cmd
 fi
