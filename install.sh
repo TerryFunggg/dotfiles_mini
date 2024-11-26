@@ -1,33 +1,33 @@
 #!/usr/bin/env bash
 location=$(pwd)
 branch=$(git branch)
+user=$USER
 
 linking ()
 {
 	echo "Start to link config files"
 
-	ln -sT $location/bin /home/terryfung/bin
+	ln -sT $location/bin /home/$user/bin
 	echo "Installed bin folder"
-	ln -s $location/vim/.vimrc /home/terryfung/.vimrc
+	ln -s $location/vim/.vimrc /home/$user/.vimrc
 	echo "Installed tmux config"
-	ln -s $location/.gitconfig /home/terryfung/.gitconfig
+	ln -s $location/.gitconfig /home/$user/.gitconfig
 	echo "Installed git config"
 
-	ln -sT $location/alacritty /home/terryfung/.config/alacritty
+	ln -sT $location/alacritty /home/$user/.config/alacritty
 	echo "Installed alacritty config"
-	ln -sT $location/i3 /home/terryfung/.config/i3
+	ln -sT $location/i3 /home/$user/.config/i3
 	echo "Installed i3 config"
-	ln -sT $location/picom /home/terryfung/.config/picom
+	ln -sT $location/picom /home/$user/.config/picom
 	echo "Installed picom config"
-	ln -sT $location/ranger /home/terryfung/.config/ranger
+	ln -sT $location/ranger /home/$user/.config/ranger
 	echo "Installed ranger config"
-	ln -sT $location/tmux /home/terryfung/.config/tmux
+	ln -sT $location/tmux /home/$user/.config/tmux
 	echo "Installed tmux config"
-	ln -sT $location/dunst /home/terryfung/.config/dunst
+	ln -sT $location/dunst /home/$user/.config/dunst
 	echo "Installed dunst config"
 	
-	ln -s $location/.alias .alias
-	echo "source ~/.alias" >> ~/.bashrc
+	ln -s $location/.alias /home/$user/.alias
 	echo "Imported alias file into bashrc"
 	
 	ln -sT $location/wallpaper ~/wallpaper
@@ -62,5 +62,8 @@ echo ""
 install_font
 
 echo ""
+
+echo "source ~/.alias" >> ~/.bashrc
+
 echo "Finish! Happy Hacking!"
 
