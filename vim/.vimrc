@@ -76,24 +76,30 @@ set wildmode=list:longest
 " Wildmenu will ignore files with these extensions.
 set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
 
-" Plugin 
-call plug#begin('~/.vim/plugged')
+" The Silver Searcher
+if executable('ag')
+    set grepprg=ag\ --nogroup\ --nocolor
+    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+    let g:ctrlp_use_caching = 0
+endif
+" Search word under the cursor with K key
+nnoremap K :grep! "\b\b":cw
 
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-" Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
+" Ag command
+command -nargs=+ -complete=file -bar Ag silent! grep! |cwindow|redraw!
+" bind to key:
+nnoremap <F3> :Ag
 
-
-call plug#end()
-
-" Plug config
-" let g:airline#extensions#tabline#enabled = 1
-
-" tab style
-" :hi TabLineFill ctermfg=LightGreen ctermbg=DarkGreen
-" :hi TabLine ctermfg=Blue ctermbg=Yellow
-" :hi TabLineSel ctermfg=Red ctermbg=Yellow
+" find files and populate the quickfix list
+fun! FindFiles(filename)
+    let error_file = tempname()
+    silent exe '!find . -type f -name "*'.a:filename.'*" | xargs file | sed "s/:/:1:/" > '.error_file
+    set errorformat=%f:%l:%m
+    exe "cfile ". error_file
+    copen
+    call delete(error_file)
+endfun
+command! -nargs=1 FindFile call FindFiles()
 
 " Key Map
 let mapleader = '\'
@@ -142,9 +148,3 @@ inoremap <c-f> <Right>
 inoremap <c-p> <Up>
 inoremap <c-n> <Down>
 
-
-" fzf keymap
-nmap <leader>ff :Files<Return>
-nmap <leader>fg :GFiles<Return>
-nmap <leader>fb :Buffers<Return>
-nmap <leader>fa :Ag<Return>
