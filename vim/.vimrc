@@ -99,7 +99,8 @@ fun! FindFiles(filename)
     copen
     call delete(error_file)
 endfun
-command! -nargs=1 FindFile call FindFiles()
+command! -nargs=1 FindFile call FindFiles(<q-args>)
+nnoremap <F2> :FindFile
 
 " Key Map
 let mapleader = '\'
