@@ -6,7 +6,7 @@
 [[ $- != *i* ]] && return
 
 #PS1='[\u@\h \W]\$ '
-PS1='\e[1;34m\w\e[m \e[1;31m-> \e[m'
+PS1='\[\e[1;34m\]\w\[\e[m\] \[\e[1;31m\]$\[\e[m\] '
 
 # History 
 HISTCONTROL=ignoredups
