@@ -11,6 +11,8 @@ declare -a tools=(
     "i3"
     "picom"
     "dunst"
+    "w3m"
+    "feh"
     #"alacritty"
 )
 
