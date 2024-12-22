@@ -2,6 +2,7 @@
 set -e
 declare -a tools=(
     "git"
+    "unzip"
     "wget"
     "tmux"
     "vim"
@@ -10,7 +11,7 @@ declare -a tools=(
     "i3"
     "picom"
     "dunst"
-    "alacritty"
+    #"alacritty"
 )
 
 $distro ${tools[*]}
