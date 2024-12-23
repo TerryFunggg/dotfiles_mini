@@ -13,6 +13,7 @@ declare -a tools=(
     "dunst"
     "w3m"
     "feh"
+    "dmenu"
     #"alacritty"
 )
 
