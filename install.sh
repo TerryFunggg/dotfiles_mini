@@ -7,27 +7,27 @@ linking ()
 {
 	echo "Start to link config files"
 
-	ln -sT $location/bin /home/$user/bin
+	ln -sT $location/bin $HOME/bin
 	echo "Installed bin folder"
-	ln -s $location/vim/.vimrc /home/$user/.vimrc
+	ln -s $location/vim/.vimrc $HOME/.vimrc
 	echo "Installed tmux config"
-	ln -s $location/.gitconfig /home/$user/.gitconfig
+	ln -s $location/.gitconfig $HOME/.gitconfig
 	echo "Installed git config"
 
-	ln -sT $location/alacritty /home/$user/.config/alacritty
+	ln -sT $location/alacritty $HOME/.config/alacritty
 	echo "Installed alacritty config"
-	ln -sT $location/i3 /home/$user/.config/i3
+	ln -sT $location/i3 $HOME/.config/i3
 	echo "Installed i3 config"
-	ln -sT $location/picom /home/$user/.config/picom
+	ln -sT $location/picom $HOME/.config/picom
 	echo "Installed picom config"
-	ln -sT $location/ranger /home/$user/.config/ranger
+	ln -sT $location/ranger $HOME/.config/ranger
 	echo "Installed ranger config"
-	ln -sT $location/tmux /home/$user/.config/tmux
+	ln -sT $location/tmux $HOME/.config/tmux
 	echo "Installed tmux config"
-	ln -sT $location/dunst /home/$user/.config/dunst
+	ln -sT $location/dunst $HOME/.config/dunst
 	echo "Installed dunst config"
 	
-	ln -s $location/.alias /home/$user/.alias
+	ln -s $location/.alias $HOME/.alias
 	echo "Imported alias file into bashrc"
 	
 	ln -sT $location/wallpaper ~/wallpaper
