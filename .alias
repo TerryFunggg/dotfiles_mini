@@ -6,4 +6,4 @@ alias fd='fd --type f --hidden \
 --exclude node_modules \
 --exclude .keep'
 
-alias push='fd | fzf | (read h; tmux new-window -n $h nvim $h)'
+#alias push='fd | fzf | (read h; tmux new-window -n $h nvim $h)'
