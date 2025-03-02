@@ -1,3 +1,5 @@
+set belloff=all
+set enc=utf-8
 "sable compatibility with vi which can cause unexpected issues.
 set nocompatible
 
@@ -33,6 +35,7 @@ set expandtab
 
 " " Do not save backup files.
 set nobackup
+set noswapfile
 
 " " Do not let cursor scroll below or above N number of lines when scrolling.
 set scrolloff=10
