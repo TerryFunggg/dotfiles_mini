@@ -79,14 +79,13 @@ set wildmode=list:longest
 " Wildmenu will ignore files with these extensions.
 set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
 
-" The Silver Searcher
-if executable('ag')
-    set grepprg=ag\ --nogroup\ --nocolor
-    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-    let g:ctrlp_use_caching = 0
-endif
+colorscheme blue
+
 " Search word under the cursor with K key
-nnoremap K :grep! "\b\b":cw
+"nnoremap K :grep! "\b<cword>\b" :cw
+"nnoremap K :grep <cword> .<CR>
+" nnoremap K :vimgrep /<cword>/g ./**<CR>:copen<CR>
+map K :execute " grep -srnw --binary-files=without-match --exclude-dir=.git . -e " . expand("<cword>") . " " <bar> cwindow<CR>
 
 " Ag command
 command -nargs=+ -complete=file -bar Ag silent! grep! |cwindow|redraw!
