@@ -79,30 +79,47 @@ set wildmode=list:longest
 " Wildmenu will ignore files with these extensions.
 set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
 
+set autoread
+set confirm
+" auto change work directory
+set autochdir
+
+
 colorscheme blue
 
-" Search word under the cursor with K key
-"nnoremap K :grep! "\b<cword>\b" :cw
-"nnoremap K :grep <cword> .<CR>
-" nnoremap K :vimgrep /<cword>/g ./**<CR>:copen<CR>
-map K :execute " grep -srnw --binary-files=without-match --exclude-dir=.git . -e " . expand("<cword>") . " " <bar> cwindow<CR>
 
-" Ag command
-command -nargs=+ -complete=file -bar Ag silent! grep! |cwindow|redraw!
-" bind to key:
-nnoremap <F3> :Ag
+" The Silver Searcher
+if executable('rg')
+   set grepprg=rg\ --vimgrep
+endif
+
+" Search word under the cursor with K key
+nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+
 
 " find files and populate the quickfix list
 fun! FindFiles(filename)
-    let error_file = tempname()
-    silent exe '!find . -type f -name "*'.a:filename.'*" | xargs file | sed "s/:/:1:/" > '.error_file
-    set errorformat=%f:%l:%m
-    exe "cfile ". error_file
-    copen
-    call delete(error_file)
+   let error_file = tempname()
+   silent exe '!find . -type f -name "*'.a:filename.'*" -not -path "./node_modules/*" -not -path "./.git/*" | xargs file | sed "s/:/:1:/" > '.error_file
+   set errorformat=%f:%l:%m
+   exe "cfile ". error_file
+   copen
+   call delete(error_file)
 endfun
 command! -nargs=1 FindFile call FindFiles(<q-args>)
-nnoremap <F2> :FindFile
+nnoremap <F2> :FindFile<SPACE>
+
+" buffer
+function! SwitchBuffer()
+    echo "Buffers:"
+    execute "ls"
+    echo "Switch to buffer in a new tab: "
+    let buffer = input("")
+    if buffer != ""
+        execute "tabnew | b" . buffer
+    endif
+endfunction
+nnoremap <Leader>bb :call SwitchBuffer()<CR>
 
 " Key Map
 let mapleader = '\'
@@ -117,6 +134,8 @@ nnoremap <leader>e $
 nmap te :tabedit 
 nmap <S-Tab> :tabprev<Return>
 nmap <Tab> :tabnext<Return>
+nmap <leader>tn :tabnew<Return>
+nmap <Leader>tt :tabedit %<CR> " clone current to new tab
 
 
 " Windows
