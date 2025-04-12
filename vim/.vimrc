@@ -99,13 +99,29 @@ nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
 " find files and populate the quickfix list
 fun! FindFiles(filename)
+   cexpr []
    let error_file = tempname()
-   silent exe '!find . -type f -name "*'.a:filename.'*" -not -path "./node_modules/*" -not -path "./.git/*" | xargs file | sed "s/:/:1:/" > '.error_file
+   let l:current_dir = getcwd()
+
+   " Check if Git is available and the directory is a Git repository
+   let l:git_check = system('git rev-parse --is-inside-work-tree 2>/dev/null')
+   if v:shell_error == 0
+       " Use Git to find files in the repository
+       let l:find_command = "!git ls-files | grep '" . a:filename . "'"
+   else
+       " Fallback to the find command if Git is not available
+       let l:find_command = "!find " . l:current_dir . " -type f -name '*" . a:filename . "*'" . " -not -path './node_modules/*' -not -path './.git/*' "
+   endif
+   " Execute the command and populate the Quickfix list
+   " execute "silent! !" . l:grep_command
+   silent exe l:find_command . ' | xargs file | sed "s/:/:1:/" > '.error_file
    set errorformat=%f:%l:%m
    exe "cfile ". error_file
    copen
    call delete(error_file)
+
 endfun
+
 command! -nargs=1 FindFile call FindFiles(<q-args>)
 nnoremap <F2> :FindFile<SPACE>
 
