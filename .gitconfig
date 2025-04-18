@@ -3,7 +3,7 @@
 	name = TerryFunggg
 [core]
 	excludesfile = ~/.gitignore
-	editor = nvim
+	editor = vim
 [color]
   status = auto
   diff = auto
