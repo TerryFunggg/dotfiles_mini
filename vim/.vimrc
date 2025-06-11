@@ -85,7 +85,7 @@ set confirm
 set autochdir
 
 
-colorscheme blue
+" colorscheme blue
 
 
 " The Silver Searcher
