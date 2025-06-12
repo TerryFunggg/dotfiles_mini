@@ -1,6 +1,8 @@
 #!/bin/bash
 
 LOG_FILE="/tmp/hdmi_handler.log"
+primary="eDP"
+hdmi_size="2560x1440"
 
 # Function to log messages
 log_message() {
@@ -15,6 +17,7 @@ fi
 
 # Get the list of connected monitors
 monitors=$(xrandr --listmonitors | head -1 | cut -d ' ' -f 2)
+monitors=$(xrandr | grep -E " connected" | wc -l)
 if [ -z "$monitors" ]; then
     log_message "Failed to get monitor information"
     exit 1
@@ -37,21 +40,15 @@ done
 
 # Handle different monitor configurations
 if [ "$monitors" -eq 2 ] && [ "$iseDP" -eq 1 ] && [ "$isHDMI" -eq 1 ]; then
-    xrandr --output "$hdmi_device" --mode 3840x2160 --above eDP
+    xrandr --output "$hdmi_device" --mode $hdmi_size --output $primary --off
     log_message "HDMI plug-in: $hdmi_device detected"
     notify-send "HDMI Input" "$hdmi_device is detected"
 
-elif [ "$monitors" -eq 1 ] && [ "$iseDP" -eq 1 ]; then
+else 
     xrandr --output eDP --auto
     if [ "$isHDMI" -eq 1 ]; then
         xrandr --output "$hdmi_device" --off
+        log_message "HDMI removed"
     fi
-    log_message "HDMI removed"
 
-else
-    xrandr --output eDP --auto
-    if [ "$isHDMI" -eq 1 ]; then
-        xrandr --output "$hdmi_device" --off
-    fi
-    log_message "Default monitor configuration applied"
 fi
