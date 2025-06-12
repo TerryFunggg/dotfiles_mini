@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+dm="dmenu -fn 'Hack-14' -sb #BA0F30 -b -i -l 10 -p KILL:"
+
+ps -u $USER -o pid,comm | $dm | xargs -r kill
+
