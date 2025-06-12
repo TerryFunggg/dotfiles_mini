@@ -20,7 +20,7 @@ declare -a options=(
 
 if [ -n "$DESKTOP_SESSION" ]; then
     if command -v dmenu > /dev/null 2>&1;then
-	choice=$(printf '%s\n' "${options[@]}" | dmenu -l 10)
+	choice=$(printf '%s\n' "${options[@]}" | dmenu -sb '#e59400' -fn 'Hack-14' -l 10)
     else
 	echo "Require dmenu. Please install dmenu first "
 	exit 0

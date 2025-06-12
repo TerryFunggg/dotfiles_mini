@@ -2,8 +2,8 @@
 export TERM=linux
 
 declare -a options=(
-    "pikuma_Graphic - $HOME/codebox/pikuma/learn_computer_graphic"
-    "blog - $HOME/todo/blog"
+    "pikuma_3DGraphic - /home/terryfung/project/3d_render"
+    "pikuma_2dphysic - /home/terryfung/project/2dphysics"
 )
 
 # Require tmux
@@ -17,7 +17,7 @@ fi
 # check desktop env or terminal env
 if [ -n "$DESKTOP_SESSION" ]; then
     if command -v dmenu > /dev/null 2>&1;then
-        choice=$(printf '%s\n' "${options[@]}" | dmenu -l 10)
+        choice=$(printf '%s\n' "${options[@]}" | dmenu -fn Hack-14 -l 10)
     else
 	echo "Require dmenu. Please install dmenu first "
 	exit 0
