@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+# Select sink using dmenu
+# Requrie Pipewire
+
+ans=$(pactl list sinks | grep Name | awk '{print $NF}' | dmenu -fn 'Hack-14' -l 10 -p 'Select Sink:')
+
+pactl set-default-sink $ans
