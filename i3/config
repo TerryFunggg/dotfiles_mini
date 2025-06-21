@@ -345,3 +345,4 @@ bindsym $mod+x exec --no-startup-id /home/terryfung/bin/dmenu-kill
 bindsym $mod+F1 exec . /home/terryfung/bin/manpdf
 bindsym $mod+F2 exec . /home/terryfung/bin/my-config
 bindsym $mod+F3 exec . /home/terryfung/bin/start-project
+bindsym $mod+F4 exec . /home/terryfung/bin/dmenu-books

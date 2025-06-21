@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+book=$(ls ~/books/ | dmenu -fn 'Hack-14' -l 10 -p 'Select Book:')
+
+if [ -z "$book" ]; then
+    exit 0
+else
+    evince "file:///home/terryfung/books/$book"
+fi
+
