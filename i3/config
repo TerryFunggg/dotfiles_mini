@@ -346,3 +346,5 @@ bindsym $mod+F1 exec . /home/terryfung/bin/manpdf
 bindsym $mod+F2 exec . /home/terryfung/bin/my-config
 bindsym $mod+F3 exec . /home/terryfung/bin/start-project
 bindsym $mod+F4 exec . /home/terryfung/bin/dmenu-books
+bindsym $mod+F5 exec . /home/terryfung/bin/dmenu-sink
+bindsym $mod+F6 exec . /home/terryfung/bin/dmenu-volume

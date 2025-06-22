@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+choice=$(echo -e "Mute/UnMute\nVolume Up\nVolume Down" | dmenu -sb '#e59400' -fn 'Hack-14' -b -l 10 -p "Volume Control")
+
+case "$choice" in
+  "Mute/UnMute") pactl set-sink-mute @DEFAULT_SINK@ toggle ;;
+  "Volume Up") pactl set-sink-volume @DEFAULT_SINK@ +5% ;;
+  "Volume Down") pactl set-sink-volume @DEFAULT_SINK@ -5% ;;
+esac
