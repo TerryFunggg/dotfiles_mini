@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Finding any folder have unstaged files
+# Finding any folder have unstaged files under $SEARCH_DIR
 
 SEARCH_DIR="${1:-$HOME}"  # default home
 
@@ -11,8 +11,13 @@ find "$SEARCH_DIR" -type d -name ".git" | while read gitdir; do
     repo=$(dirname "$gitdir")
     cd "$repo" || continue
 
+    if [[ "$repo" == *"node_modules"* || "$repo" == *"venv"* ]]; then
+        continue
+    fi
+
     # Check for unstaged changes
-    unstaged=$(git diff --name-only)
+    #unstaged=$(git diff --name-only)
+    unstaged=$(git status --short | awk 'NR<=5 {print} END {if (NR > 5) printf "... and %d more\n", NR-5}')
 
     if [ -n "$unstaged" ]; then
         echo "📁 Repo: $repo"
