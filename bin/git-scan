@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Finding any folder have unstaged files
+
+SEARCH_DIR="${1:-$HOME}"  # default home
+
+echo "🔍 Scanning for Git repos with unstaged files in: $SEARCH_DIR"
+echo
+
+find "$SEARCH_DIR" -type d -name ".git" | while read gitdir; do
+    repo=$(dirname "$gitdir")
+    cd "$repo" || continue
+
+    # Check for unstaged changes
+    unstaged=$(git diff --name-only)
+
+    if [ -n "$unstaged" ]; then
+        echo "📁 Repo: $repo"
+        echo "$unstaged"
+        echo
+    fi
+done
+
