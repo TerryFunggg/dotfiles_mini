@@ -14,6 +14,8 @@ declare -a tools=(
     "w3m"
     "feh"
     "dmenu"
+    "mutt"
+    "neomutt"
     #"alacritty"
 )
 

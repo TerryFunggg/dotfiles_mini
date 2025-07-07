@@ -11,7 +11,7 @@ find "$SEARCH_DIR" -type d -name ".git" | while read gitdir; do
     repo=$(dirname "$gitdir")
     cd "$repo" || continue
 
-    if [[ "$repo" == *"node_modules"* || "$repo" == *"venv"* ]]; then
+    if [[ "$repo" == *"node_modules"* || "$repo" == *"venv"* || "$repo" == *".local"* ]]; then
         continue
     fi
 
