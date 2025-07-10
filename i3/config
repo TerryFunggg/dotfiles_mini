@@ -338,6 +338,8 @@ exec --no-startup-id picom
 exec --no-startup-id dunst
 exec --no-startup-id fcitx5
 exec --no-startup-id xfce4-power-manager
+
+bindsym Print exec --no-startup-id xfce4-screenshooter
 # kill process
 bindsym $mod+x exec --no-startup-id /home/terryfung/bin/dmenu-kill
 

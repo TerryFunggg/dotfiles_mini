@@ -16,6 +16,7 @@ declare -a tools=(
     "dmenu"
     "mutt"
     "neomutt"
+    "xfce4-screenshooter"
     #"alacritty"
 )
 
