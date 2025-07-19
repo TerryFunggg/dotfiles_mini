@@ -351,3 +351,4 @@ bindsym $mod+F4 exec . /home/terryfung/bin/dmenu-books
 bindsym $mod+F5 exec . /home/terryfung/bin/dmenu-sink
 bindsym $mod+F6 exec . /home/terryfung/bin/dmenu-volume
 bindsym $mod+F7 exec . /home/terryfung/bin/dmenu-bookmarks
+bindsym $mod+F11 exec . /home/terryfung/bin/hdmi_detect.sh
