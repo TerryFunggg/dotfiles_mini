@@ -16,6 +16,22 @@ set $mod Mod4
 #font pango:monospace 10
 font pango:Hack Nerd Font 10 
 
+# Load wal colors
+set_from_resource $background background
+set_from_resource $foreground foreground
+set_from_resource $color0 color0
+set_from_resource $color1 color1
+set_from_resource $color2 color2
+set_from_resource $color3 color3
+set_from_resource $color4 color4
+set_from_resource $color5 color5
+set_from_resource $color6 color6
+set_from_resource $color7 color7
+
+# Use them in i3
+client.focused          $color4 $color4 $foreground $color4
+client.unfocused        $background $background $foreground $background
+
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 #font pango:DejaVu Sans Mono 8
@@ -333,7 +349,9 @@ mode "$mode_gaps_left" {
 
 exec --no-startup-id /home/terryfung/bin/hdmi_detect.sh
 bindsym $mod+b exec --no-startup-id feh --no-fehbg --bg-fill --randomize ~/wallpaper/*
-exec --no-startup-id feh --no-fehbg --bg-fill --randomize ~/wallpaper/*
+bindsym $mod+shift+b exec --no-startup-id wal -i ~/wallpaper
+# exec --no-startup-id feh --no-fehbg --bg-fill --randomize ~/wallpaper/*
+exec --no-startup-id wal -i ~/wallpaper
 exec --no-startup-id picom
 exec --no-startup-id dunst
 exec --no-startup-id fcitx5
