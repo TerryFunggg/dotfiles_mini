@@ -206,8 +206,8 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        #status_command i3status
-        status_command i3status --config ~/.config/i3/i3status.conf
+        status_command i3status
+        #status_command i3status --config ~/.config/i3/i3status.conf
 }
 
 ### i3-gaps stuff ###
@@ -363,10 +363,10 @@ bindsym $mod+x exec --no-startup-id /home/terryfung/bin/dmenu-kill
 
 # print man as pdf
 bindsym $mod+F1 exec . /home/terryfung/bin/manpdf
-bindsym $mod+F2 exec . /home/terryfung/bin/my-config
-bindsym $mod+F3 exec . /home/terryfung/bin/start-project
+bindsym $mod+F2 exec --no-startup-id /home/terryfung/bin/my-config
+bindsym $mod+F3 exec --no-startup-id /home/terryfung/bin/start-project
 bindsym $mod+F4 exec . /home/terryfung/bin/dmenu-books
 bindsym $mod+F5 exec . /home/terryfung/bin/dmenu-sink
 bindsym $mod+F6 exec . /home/terryfung/bin/dmenu-volume
-bindsym $mod+F7 exec . /home/terryfung/bin/dmenu-bookmarks
-bindsym $mod+F11 exec . /home/terryfung/bin/hdmi_detect.sh
+#bindsym $mod+F7 exec . /home/terryfung/bin/dmenu-bookmarks
+#bindsym $mod+F11 exec . /home/terryfung/bin/hdmi_detect.sh
