@@ -1,0 +1,21 @@
+#!/bin/bash
+# require wal(pywal)
+
+# Check if 'wal' is not installed
+if ! command -v wal &> /dev/null; then
+  echo "Error: 'wal' is not installed. Please install pywal first."
+  exit 1
+fi
+
+# List of available themes
+themes=(
+  "3024"
+  "ashes"
+  "base16-atelier-dune"
+  "base16-monokia"
+  "base16-rebecca"
+  "sexy-belge"
+)
+
+random_theme="${themes[RANDOM % ${#themes[@]}]}"
+wal --theme "$random_theme"
