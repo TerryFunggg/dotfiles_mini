@@ -349,9 +349,8 @@ mode "$mode_gaps_left" {
         bindsym Escape mode "default"
 }
 
-exec --no-startup-id /home/terryfung/bin/hdmi_detect.sh
 bindsym $mod+b exec --no-startup-id feh --no-fehbg --bg-fill --randomize ~/wallpaper/*
-bindsym $mod+shift+b exec --no-startup-id wal -i ~/wallpaper
+bindsym $mod+shift+b exec --no-startup-id /home/terryfung/bin/wal-theme
 exec --no-startup-id feh --no-fehbg --bg-fill --randomize ~/wallpaper/*
 #exec --no-startup-id wal -i ~/wallpaper
 exec --no-startup-id picom
