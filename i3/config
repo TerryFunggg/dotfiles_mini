@@ -215,7 +215,8 @@ bar {
 # Necessary for i3-gaps to work properly (pixel can be any value)
 for_window [class="^.*"] border pixel 5
 # Pop up htop at the bottom
-for_window [instance="htop-term"] floating enable, move position center, resize set 1000 300, move down 720px
+for_window [instance="htop-term"] floating enable, move position 0 0, resize set 800 400
+for_window [instance="pulsemixer-pop"] floating enable, move position center, resize set 750 300, move down 720px
 
 # Smart Gaps
 smart_gaps on
@@ -368,7 +369,7 @@ bindsym $mod+F2 exec --no-startup-id /home/terryfung/bin/my-config
 bindsym $mod+F3 exec --no-startup-id /home/terryfung/bin/start-project
 bindsym $mod+F4 exec . /home/terryfung/bin/dmenu-books
 bindsym $mod+F5 exec . /home/terryfung/bin/dmenu-sink
-bindsym $mod+F6 exec . /home/terryfung/bin/dmenu-volume
+bindsym $mod+F6 exec --no-startup-id alacritty --class pulsemixer-pop -e pulsemixer
 #bindsym $mod+F7 exec . /home/terryfung/bin/dmenu-bookmarks
 #bindsym $mod+F11 exec . /home/terryfung/bin/hdmi_detect.sh
 bindsym $mod+F12 exec --no-startup-id alacritty --class htop-term -e htop
