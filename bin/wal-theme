@@ -7,6 +7,8 @@ if ! command -v wal &> /dev/null; then
   exit 1
 fi
 
+wal_log="/tmp/wal-theme"
+
 # List of available themes
 themes=(
   "3024"
@@ -44,4 +46,6 @@ themes=(
 )
 
 random_theme="${themes[RANDOM % ${#themes[@]}]}"
+echo "$(date '+%Y-%m-%d %H:%M:%S'): $random_theme" >> $wal_log
+notify-send "Switch color scheme: $random_theme" -t 2000
 wal --theme "$random_theme"
