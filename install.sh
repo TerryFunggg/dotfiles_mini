@@ -225,6 +225,8 @@ install_wal() {
 
     if command -v wal &>/dev/null; then
         log "✅ pywal installed successfully."
+
+        sed -i '1iimport=["~/.cache/wal/alacritty.toml"]' ~/.config/alacritty/alacritty.toml
     else
         log "❌ Failed to install pywal. Please check Python and pip setup."
         log "Or manually link wal."
