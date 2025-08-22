@@ -18,7 +18,7 @@ declare -a tools=(
     "make" "gcc" "git" "unzip" "wget" "tmux" "vim"
     "fzf" "ranger" "i3" "picom" "dunst" "w3m" "feh"
     "dmenu" "pulsemixer" "xfce4" "xfce4-screenshooter"
-    "alacritty" "htop"
+    "alacritty" "htop" "autorandr"
 )
 
 log() {
@@ -269,36 +269,10 @@ make_xprofile() {
 
 add_xrandr_config() {
 
-    if [ -f "$xprofile" ] && grep -q "^xrandr " "$xprofile"; then
-        echo ""
-        log "⚠️  .xprofile already contains xrandr settings:"
-        log "Please check the .xprofile. It may break the display"
-        return
-    fi
-
-    xrandr
-    # Prompt for display settings
-    read -p "Enter output name (e.g., HDMI-1): " output
-    read -p "Enter resolution (e.g., 2560x1440): " resolution
-    local line="xrandr --output \"$output\" --mode \"$resolution\""
-    echo ""
-    echo "$line"
-    read -p "❓ Add this to your .xprofile? [y/N]: " confirm
-
-    if [[ "$confirm" == "y" ]]; then
-        echo "$line" >> "$xprofile"
-        log "✅ Inject xrandr config into xprofile"
-    else
-        while [[ "$confirm" != "y" ]]; do
-            echo "🧾 Type your full xrandr command (e.g. xrandr --output HDMI-1 --mode 1920x1080 --rate 60):"
-            read -e -p "> " line
-            echo ""
-            echo "$line"
-            read -p "❓ Add this to your .xprofile? [y/N]: " confirm
-        done
-        echo "$line" >> "$xprofile"
-        log "✅ Inject xrandr config into xprofile"
-    fi
+    echo "Currently using autorandr to automatically load xrandr config"
+    echo "First using xrandr command to make sure your screen setting is what you want."
+    echo "Then type 'autorandr --save <profile_name>' save your current xrandr config."
+    echo "autorandr will as background service to detect the configuration"
 }
 
 # ASCII Art Title
@@ -390,13 +364,14 @@ EOF
 
 append_bashrc
 make_xprofile
-add_xrandr_config
 install_emacs_config
 install_nvim_config
 
 # add my perfer theme color(you can check this on ~/bin/wal-theme)
 grep -qxF 'wal-theme' $xprofile || echo 'wal-theme' >> $xprofile
 log "✅ Inject 'wal-theme' into xprofile"
+
+add_xrandr_config
 
 echo ""
 log "Finish! Happy Hacking!"
