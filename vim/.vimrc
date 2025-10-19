@@ -186,3 +186,6 @@ inoremap <c-f> <Right>
 inoremap <c-p> <Up>
 inoremap <c-n> <Down>
 
+" Move up/down on quickfix item
+nnoremap <PageDown> :cnext<CR>
+nnoremap <PageUp> :cprev<CR>
