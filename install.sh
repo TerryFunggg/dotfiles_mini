@@ -18,7 +18,7 @@ declare -a tools=(
     "make" "gcc" "git" "unzip" "wget" "tmux" "vim"
     "fzf" "ranger" "i3" "picom" "dunst" "w3m" "feh"
     "dmenu" "pulsemixer" "xfce4" "xfce4-screenshooter"
-    "alacritty" "htop" "autorandr"
+    "alacritty" "htop" "autorandr" "rofi"
 )
 
 log() {
