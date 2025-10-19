@@ -1,0 +1,13 @@
+#!/bin/bash
+
+BOOKMARKS=~/notes/.bookmarks
+
+# Use Rofi to select a bookmark
+CHOICE=$(cat "$BOOKMARKS" | rofi -dmenu -p "Open bookmark")
+
+# Extract URL from selection
+URL=$(echo "$CHOICE" | awk '{print $2}')
+
+# Open in default browser
+[ -n "$URL" ] && xdg-open "$URL"
+
