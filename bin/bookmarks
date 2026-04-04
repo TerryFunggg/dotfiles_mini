@@ -1,13 +1,13 @@
 #!/bin/bash
 
-BOOKMARKS=~/notes/.bookmarks
-
 # Use Rofi to select a bookmark
-CHOICE=$(cat "$BOOKMARKS" | rofi -dmenu -p "Open bookmark")
-
-# Extract URL from selection
-URL=$(echo "$CHOICE" | awk '{print $2}')
-
-# Open in default browser
-[ -n "$URL" ] && xdg-open "$URL"
-
+cat ~/org/gtd/bookmark.org \
+| awk -F'[][]' '
+  /\[\[http/ {
+    url = $3;
+    title = $5;
+    print title "   →   " url
+  }
+' | rofi -dmenu -i -p "Open bookmark" -theme ~/.config/rofi/launchers/type-4/style-1.rasi \
+| awk -F'   →   ' '{print $2}' \
+| xargs -r xdg-open
