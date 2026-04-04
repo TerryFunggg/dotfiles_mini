@@ -73,7 +73,7 @@ bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
 bindsym $mod+Shift+d exec --no-startup-id dmenu_run -fn 'Hack-14' -i -p Program: -l 10
-bindsym $mod+d exec --no-startup-id rofi -show drun -show-icons
+bindsym $mod+d exec --no-startup-id rofi -show drun -show-icons -theme ~/.config/rofi/launchers/type-3/style-2.rasi
 
 # change focus
 bindsym $mod+j focus left
@@ -202,7 +202,8 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        status_command i3status -c ~/.config/i3/i3status.conf
+        # status_command i3status -c ~/.config/i3/i3status.conf
+        status_command exec ~/.config/i3/i3status-wrapper.sh
 }
 
 ### i3-gaps stuff ###
@@ -366,6 +367,8 @@ bindsym $mod+F4 exec . /home/terryfung/bin/dmenu-books
 bindsym $mod+F5 exec . /home/terryfung/bin/dmenu-sink
 bindsym $mod+F6 exec --no-startup-id alacritty --class pulsemixer-pop -e pulsemixer
 bindsym $mod+F7 exec . /home/terryfung/bin/bookmarks
+bindsym $mod+F8 exec . /home/terryfung/bin/dmenu-bluethooth
 bindsym $mod+F11 exec --no-startup-id emacsclient -ce "(my/create-today-log)"
 #bindsym $mod+F11 exec . /home/terryfung/bin/hdmi_detect.sh
 bindsym $mod+F12 exec --no-startup-id alacritty --class htop-term -e htop
+bindsym $mod+Shift+h exec . /home/terryfung/bin/show-i3-keybindings
