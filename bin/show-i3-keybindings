@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Script to extract and display i3 keybindings from the config file
+CONFIG_FILE="$HOME/.config/i3/config"
+
+if [ ! -f "$CONFIG_FILE" ]; then
+    notify-send "Error" "i3 config file not found!"
+    exit 1
+fi
+
+# Extract keybindings from the config file
+KEYBINDINGS=$(grep -E "^\s*bindsym\s+" "$CONFIG_FILE" | \
+             sed 's/^\s*bindsym\s\+\([^ ]*\)\s\+\(.*\)$/\1 → \2/' | \
+             sed 's/exec --no-startup-id //g; s/exec //g')
+
+# Display the keybindings using rofi
+echo "$KEYBINDINGS" | rofi -dmenu -i -p "i3 Keybindings" -width 1000 -lines 20 -font "Hack Nerd Font 12"
