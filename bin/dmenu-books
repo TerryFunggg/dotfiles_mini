@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-book=$(ls ~/books/ | dmenu -fn 'Hack-14' -l 10 -p 'Select Book:')
+book=$(ls ~/books/ | rofi -dmenu -theme ~/.config/rofi/launchers/type-4/style-1.rasi -p "Select Book:")
 
 if [ -z "$book" ]; then
     exit 0

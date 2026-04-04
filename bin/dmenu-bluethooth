@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+# Select bluetoothctl with dmenu
+# Requrie bluetoothctl
+
+device=$(bluetoothctl devices | rofi -dmenu -theme ~/.config/rofi/launchers/type-1/style-4.rasi -p "Select devices:")
+device=$(echo $device | awk '{print $2}')
+
+bluetoothctl connect $device

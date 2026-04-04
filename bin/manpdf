@@ -1,5 +1,3 @@
 #!/usr/bin/env bash
-name=$(man -k . | dmenu -l 30 | awk '{print $1}') 
-if [[ $name ]]; then
-	man -Tpdf $name | zathura -
-fi
+name=$(man -k . | rofi -dmenu -theme ~/.config/rofi/launchers/type-4/style-1.rasi -p "Manual:" | awk '{print $1}') 
+[ -n "$name" ] && man -Tpdf $name | zathura -

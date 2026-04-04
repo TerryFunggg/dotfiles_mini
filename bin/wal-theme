@@ -1,4 +1,5 @@
 #!/bin/bash
+# rebecca
 # require wal(pywal)
 
 # Check if 'wal' is not installed

@@ -17,7 +17,7 @@ fi
 # check desktop env or terminal env
 if [ -n "$DESKTOP_SESSION" ]; then
     if command -v dmenu > /dev/null 2>&1;then
-        choice=$(printf '%s\n' "${options[@]}" | dmenu -fn Hack-14 -l 10)
+	choice=$(printf '%s\n' "${options[@]}" | rofi -dmenu -theme ~/.config/rofi/launchers/type-4/style-1.rasi -p 'Select Project:')
     else
 	echo "Require dmenu. Please install dmenu first "
 	exit 0
