@@ -347,7 +347,7 @@ mode "$mode_gaps_left" {
 }
 
 bindsym $mod+b exec --no-startup-id feh --no-fehbg --bg-fill --randomize ~/wallpaper/*
-bindsym $mod+shift+b exec --no-startup-id /home/terryfung/bin/wal-theme
+bindsym $mod+shift+b exec --no-startup-id ~/bin/wal-theme
 exec --no-startup-id feh --no-fehbg --bg-fill --randomize ~/wallpaper/*
 #exec --no-startup-id wal -i ~/wallpaper
 exec --no-startup-id picom
@@ -357,17 +357,17 @@ exec --no-startup-id xfce4-power-manager
 
 bindsym Print exec --no-startup-id xfce4-screenshooter
 # kill process
-bindsym $mod+x exec --no-startup-id /home/terryfung/bin/dmenu-kill
+bindsym $mod+x exec --no-startup-id ~/bin/dmenu-kill
 
 # print man as pdf
-bindsym $mod+F1 exec . /home/terryfung/bin/manpdf
-bindsym $mod+F2 exec --no-startup-id /home/terryfung/bin/my-config
-bindsym $mod+F3 exec --no-startup-id /home/terryfung/bin/start-project
-bindsym $mod+F4 exec . /home/terryfung/bin/dmenu-books
-bindsym $mod+F5 exec . /home/terryfung/bin/dmenu-sink
+bindsym $mod+F1 exec . ~/bin/manpdf
+bindsym $mod+F2 exec --no-startup-id ~/bin/my-config
+bindsym $mod+F3 exec --no-startup-id ~/bin/start-project
+bindsym $mod+F4 exec . ~/bin/dmenu-books
+bindsym $mod+F5 exec . ~/bin/dmenu-sink
 bindsym $mod+F6 exec --no-startup-id alacritty --class pulsemixer-pop -e pulsemixer
-bindsym $mod+F7 exec . /home/terryfung/bin/bookmarks
-bindsym $mod+F8 exec . /home/terryfung/bin/dmenu-bluethooth
+bindsym $mod+F7 exec . ~/bin/bookmarks
+bindsym $mod+F8 exec . ~/bin/dmenu-bluethooth
 bindsym $mod+F11 exec --no-startup-id emacsclient -ce "(my/create-today-log)"
 bindsym $mod+F12 exec --no-startup-id alacritty --class htop-term -e htop
-bindsym $mod+Shift+h exec . /home/terryfung/bin/show-i3-keybindings
+bindsym $mod+Shift+h exec . ~/bin/show-i3-keybindings

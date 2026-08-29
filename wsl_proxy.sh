@@ -1,4 +1,7 @@
 #!/bin/sh
+# WSL proxy toggle — ONLY for Windows Subsystem for Linux.
+# Detects the Windows host IP via /etc/resolv.conf and sets proxy (port 7890).
+# Usage: source this file, then run: set_proxy / unset_proxy / test_setting
 hostip=$(cat /etc/resolv.conf | grep nameserver | awk '{ print $2 }')
 wslip=$(hostname -I | awk '{print $1}')
 port=7890

@@ -64,7 +64,7 @@ EOF
     backup_and_link "$location/.alias" "$HOME/.alias"
 
     # ~/.config/*
-    for config in alacritty i3 picom ranger tmux dunst; do
+    for config in alacritty i3 picom ranger tmux dunst rofi; do
         backup_and_link "$location/$config" "$HOME/.config/$config"
     done
 
@@ -107,8 +107,7 @@ EOF
         unzip -o "$file"
     done
     
-    mv *.ttf $font_dist_dir
-    mv ./TTF/*.ttf $font_dist_dir
+    find . -type f -name '*.ttf' -exec mv {} "$font_dist_dir" \;
     
     fc-cache -f >/dev/null 2>>"$LOG_FILE"
 
@@ -136,7 +135,7 @@ EOF
         log "🔧 Installing: $tool"
         if [ "$os" -eq 1 ]; then
             sudo apt install -y $tool >/dev/null 2>>"$LOG_FILE"
-        elif [ "$os" -eq 2]; then
+        elif [ "$os" -eq 2 ]; then
             sudo pacman -S --noconfirm $tool >/dev/null 2>>"$LOG_FILE"
         fi
 
@@ -243,6 +242,51 @@ install_emacs_config() {
   log "📥 Cloning Emacs config from GitHub..."
   git clone --quiet "$repo_url" "$target_dir"
   log "✅ Emacs config is on your local. Please run emacs to install emacs packages."
+}
+
+install_emacs_server() {
+  echo ""
+  read -p "💻 Install emacs as a systemd user service? (y/n): " install_emacs_srv
+  if [[ "$install_emacs_srv" != "y" && "$install_emacs_srv" != "Y" ]]; then
+      log "⏭️ Skipped emacs systemd service installation."
+      return 0
+  fi
+
+  local emacs_bin
+  emacs_bin=$(command -v emacs)
+  if [ -z "$emacs_bin" ]; then
+      log "❌ emacs binary not found. Cannot install systemd service."
+      return 1
+  fi
+
+  local unit_dir="$HOME/.config/systemd/user"
+  local unit_file="$unit_dir/emacs.service"
+
+  mkdir -p "$unit_dir"
+
+  if [ -e "$unit_file" ]; then
+      mv "$unit_file" "${unit_file}.bak"
+      log "🗂️ Backed up: $unit_file → ${unit_file}.bak"
+  fi
+
+  cat > "$unit_file" <<EOF
+[Unit]
+Description=Emacs text editor
+
+[Service]
+Type=notify
+ExecStart=$emacs_bin --fg-daemon
+SuccessExitStatus=15
+
+[Install]
+WantedBy=default.target
+EOF
+
+  log "🔗 Created: $unit_file (using $emacs_bin)"
+
+  systemctl --user daemon-reload
+  systemctl --user enable --now emacs.service
+  log "✅ Emacs systemd service enabled and started."
 }
 
 install_nvim_config() {
@@ -367,6 +411,7 @@ EOF
 append_bashrc
 make_xprofile
 install_emacs_config
+install_emacs_server
 install_nvim_config
 
 # add my perfer theme color(you can check this on ~/bin/wal-theme)

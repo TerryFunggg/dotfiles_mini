@@ -5,6 +5,6 @@ book=$(ls ~/books/ | rofi -dmenu -theme ~/.config/rofi/launchers/type-4/style-1.
 if [ -z "$book" ]; then
     exit 0
 else
-    evince "file:///home/terryfung/books/$book"
+    evince "file://$HOME/books/$book"
 fi
 

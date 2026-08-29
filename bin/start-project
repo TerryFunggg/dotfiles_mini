@@ -2,8 +2,8 @@
 export TERM=linux
 
 declare -a options=(
-    "pikuma_3DGraphic - /home/terryfung/project/3d_render"
-    "pikuma_2dphysic - /home/terryfung/project/2dphysics"
+    "pikuma_3DGraphic - ~/project/3d_render"
+    "pikuma_2dphysic - ~/project/2dphysics"
 )
 
 # Require tmux
