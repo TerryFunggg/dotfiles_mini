@@ -16,7 +16,7 @@ function wrapper() {
         theme_output=$(cat /tmp/wal-theme 2> /dev/null | tail -1 | awk '{print $3}')
     
         modified=$(echo "$line" | jq --unbuffered --arg t "$theme_output" \
-            '[{"name": "custom_theme", "instance": "0", "full_text": $t, "markup": "none", "min_width":80, "align": "left"}] + .')
+            '[{"name": "custom_theme", "instance": "0", "full_text": $t, "markup": "none", "min_width":60, "align": "center"}] + .')
     
         echo "$prefix$modified"
         prefix=","
