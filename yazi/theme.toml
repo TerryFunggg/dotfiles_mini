@@ -1,0 +1,3 @@
+[flavor]
+dark  = "catppuccin-mocha"
+light = "catppuccin-mocha"   # or use a light flavor if you switch modes
